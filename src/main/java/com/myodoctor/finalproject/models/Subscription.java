@@ -7,6 +7,16 @@ import java.util.List;
 
 @Entity
 public class Subscription {
+    public Subscription() {
+    }
+
+    public Subscription(Plan plan, Patient patient, List<Patient> beneficiaries, boolean isActive) {
+        this.plan = plan;
+        this.patient = patient;
+        this.beneficiaries = beneficiaries;
+        this.isActive = isActive;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -21,5 +31,38 @@ public class Subscription {
     private List<Patient> beneficiaries;
 
     private boolean isActive;
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public List<Patient> getBeneficiaries() {
+        return beneficiaries;
+    }
+
+    public void setBeneficiaries(List<Patient> beneficiaries) {
+        this.beneficiaries = beneficiaries;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
 
 }
