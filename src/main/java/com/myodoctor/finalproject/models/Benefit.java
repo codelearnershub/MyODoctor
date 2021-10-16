@@ -24,6 +24,10 @@ public class Benefit {
     @NotNull
     private String description;
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

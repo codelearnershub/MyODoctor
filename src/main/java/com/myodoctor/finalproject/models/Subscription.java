@@ -32,6 +32,10 @@ public class Subscription {
 
     private boolean isActive;
 
+    public int getId() {
+        return id;
+    }
+
     public Plan getPlan() {
         return plan;
     }

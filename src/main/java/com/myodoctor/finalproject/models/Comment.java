@@ -27,6 +27,10 @@ public class Comment {
     @Column(nullable = false)
     private String content;
 
+    public int getId() {
+        return id;
+    }
+
     public Patient getPatient() {
         return patient;
     }

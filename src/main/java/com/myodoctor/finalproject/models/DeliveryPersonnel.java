@@ -25,6 +25,7 @@ public class DeliveryPersonnel {
     @OneToOne
     private Route route;
 
+
     public Staff getStaff() {
         return staff;
     }
