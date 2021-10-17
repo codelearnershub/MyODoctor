@@ -30,6 +30,10 @@ public class Order {
     @ManyToOne
     private DeliveryPersonnel deliveryPersonnelId;
 
+    public int getId() {
+        return id;
+    }
+
     public Patient getPatient() {
         return patient;
     }

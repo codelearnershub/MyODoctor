@@ -25,6 +25,10 @@ public class Supply {
 
     private double totalPrice;
 
+    public int getId() {
+        return id;
+    }
+
     public String getSupplierName() {
         return supplierName;
     }

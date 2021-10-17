@@ -28,6 +28,10 @@ public class OrderItem {
 
     private double rate;
 
+    public int getId() {
+        return id;
+    }
+
     public Stock getStock() {
         return stock;
     }

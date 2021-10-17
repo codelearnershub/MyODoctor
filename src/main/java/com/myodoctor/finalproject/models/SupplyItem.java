@@ -27,6 +27,10 @@ public class SupplyItem {
 
     private double rate;
 
+    public int getId() {
+        return id;
+    }
+
     public Supply getSupply() {
         return supply;
     }

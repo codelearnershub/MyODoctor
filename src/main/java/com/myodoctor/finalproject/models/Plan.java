@@ -31,6 +31,10 @@ public class Plan {
     @JoinTable(name = "plan_benefit", joinColumns = @JoinColumn(name = "plan_id"), inverseJoinColumns = @JoinColumn(name = "benefit_id"))
     List<Benefit> benefits;
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

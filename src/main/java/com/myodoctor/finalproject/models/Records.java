@@ -30,6 +30,10 @@ public class Records {
     @ManyToOne
     private  Doctor doctor;
 
+    public int getId() {
+        return id;
+    }
+
     public Patient getPatient() {
         return patient;
     }
