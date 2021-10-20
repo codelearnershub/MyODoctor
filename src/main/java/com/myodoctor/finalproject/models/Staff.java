@@ -9,9 +9,8 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(Person person, StaffType type) {
+    public Staff(Person person, String type) {
         this.id = person.getId();
-        this.person = person;
         this.type = type;
     }
 
@@ -21,7 +20,7 @@ public class Staff {
     @OneToOne
     private Person person;
 
-    private StaffType type;
+    private String type;
 
     public int getId() {
         return id;
@@ -39,11 +38,11 @@ public class Staff {
         this.person = person;
     }
 
-    public StaffType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(StaffType type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

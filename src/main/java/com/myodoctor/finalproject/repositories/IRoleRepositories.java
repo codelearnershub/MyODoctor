@@ -4,5 +4,8 @@ import com.myodoctor.finalproject.models.Address;
 import com.myodoctor.finalproject.models.Role;
 import org.springframework.data.repository.CrudRepository;
 
-public interface IRole extends CrudRepository<Role, Integer> {
+import java.util.Optional;
+
+public interface IRoleRepositories extends CrudRepository<Role, Integer> {
+    Optional<Role> findByName(String name);
 }

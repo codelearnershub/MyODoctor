@@ -2,6 +2,7 @@ package com.myodoctor.finalproject.models;
 
 import javax.persistence.*;
 
+@Entity
 public class SupplyItem {
     public SupplyItem() {
     }
