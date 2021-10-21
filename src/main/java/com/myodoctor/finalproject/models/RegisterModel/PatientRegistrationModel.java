@@ -2,14 +2,8 @@ package com.myodoctor.finalproject.models.RegisterModel;
 
 import com.myodoctor.finalproject.models.Person;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 public class PatientRegistrationModel {
-
-    private int id;
-    private Person person;
+//    private Person person;
     private double weight;
     private double height;
     private String bloodGroup;
@@ -17,21 +11,13 @@ public class PatientRegistrationModel {
     private String workId;
     private String patientHospitalId;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+//    public Person getPerson() {
+//        return person;
+//    }
+//
+//    public void setPerson(Person person) {
+//        this.person = person;
+//    }
 
     public double getWeight() {
         return weight;

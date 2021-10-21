@@ -4,7 +4,6 @@ import com.myodoctor.finalproject.models.Route;
 import com.myodoctor.finalproject.models.Staff;
 
 public class DeliveryPersonnelRegistrationModel {
-    private int id;
     private Staff staff;
     private Route route;
 

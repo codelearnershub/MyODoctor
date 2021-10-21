@@ -12,14 +12,12 @@ import java.util.Date;
 import java.util.List;
 
 public class PersonRegisterModel {
-
-    private int id;
     private String username;
     private String referenceNo;
     private String firstName;
     private String lastName;
     private String middleName;
-    private Address address;
+//    private Address address;
     private List<Language> language;
     private Date dateOfBirth;
     private String homePhoneNo;
@@ -31,10 +29,6 @@ public class PersonRegisterModel {
     private boolean isActive;
     private String password;
     private String confirmPassword;
-
-    public int getId() {
-        return id;
-    }
 
     public String getUsername() {
         return username;
@@ -74,14 +68,6 @@ public class PersonRegisterModel {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public List<Language> getLanguage() {
@@ -164,7 +150,15 @@ public class PersonRegisterModel {
         this.password = password;
     }
 
-//    public List<Role> getRoles() {
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    //    public List<Role> getRoles() {
 //        return roles;
 //    }
 //

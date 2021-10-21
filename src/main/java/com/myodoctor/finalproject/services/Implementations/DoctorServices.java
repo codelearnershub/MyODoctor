@@ -1,36 +1,37 @@
 package com.myodoctor.finalproject.services.Implementations;
 
 
-import com.myodoctor.finalproject.models.Department;
-import com.myodoctor.finalproject.models.Doctor;
-import com.myodoctor.finalproject.models.Person;
+import com.myodoctor.finalproject.models.*;
 import com.myodoctor.finalproject.models.RegisterModel.DoctorRegistrationModel;
 import com.myodoctor.finalproject.models.RegisterModel.PersonRegisterModel;
-import com.myodoctor.finalproject.models.Staff;
+import com.myodoctor.finalproject.repositories.IDepartmentRepositories;
 import com.myodoctor.finalproject.repositories.IDoctorRepositories;
 import com.myodoctor.finalproject.services.Interfaces.IDoctorServices;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Service
 public class DoctorServices implements IDoctorServices {
     IDoctorRepositories doctorRepositories;
+    IDepartmentRepositories departmentRepositories;
     StaffServices staffServices;
-    DoctorRegistrationModel doctorRegistrationModel;
+
     PersonServices personServices;
 
-    public DoctorServices(IDoctorRepositories doctorRepositories) {
+    public DoctorServices(IDepartmentRepositories departmentRepositories,IDoctorRepositories doctorRepositories) {
         this.doctorRepositories = doctorRepositories;
-//        this.staffServices = staffServices;
-//        this.doctorRegistrationModel = doctorRegistrationModel;
-//        this.personServices = personServices;
+        this.departmentRepositories = departmentRepositories;
     }
 
-    public boolean createDoctor(Person person) {
+    public boolean createDoctor(DoctorRegistrationModel doctorRegistrationModel,Address address,PersonRegisterModel personModel,RedirectAttributes redirectAttributes,Person person) {
         String role = "doctor";
-        staffServices.createStaff(role);
-        Doctor doctor = new Doctor();
+        var newStaff = staffServices.createStaff(address,personModel, redirectAttributes, role);
+        var department = departmentRepositories.findByName(doctorRegistrationModel.getDepartment());
+
+        Doctor doctor = new Doctor(newStaff,doctorRegistrationModel.getBiography(),doctorRegistrationModel.getQualifications(),doctorRegistrationModel.getDocumentURLs(),department);
+
         doctorRepositories.save(doctor);
         return true;
     }
@@ -43,16 +44,18 @@ public class DoctorServices implements IDoctorServices {
         return true;
     }
 
-    public boolean update(int id, PersonRegisterModel personModel) {
+    public boolean update(int id, Address address, DoctorRegistrationModel doctorRegistrationModel, PersonRegisterModel personModel) {
+        personServices.update(id,address,personModel);
 
-        personServices.update(id, personModel);
         Doctor doctor = doctorRepositories.findById(id).get();
+
         doctor.setStaff(doctorRegistrationModel.getStaff());
         doctor.setBiography(doctorRegistrationModel.getBiography());
         doctor.setQualifications(doctorRegistrationModel.getQualifications());
         doctor.setDocumentURLs(doctorRegistrationModel.getDocumentURLs());
-        doctor.setDepartment(doctorRegistrationModel.getDepartment());
 
+         var department = departmentRepositories.findByName(doctorRegistrationModel.getDepartment());
+        doctor.setDepartment(department);
         return true;
     }
 

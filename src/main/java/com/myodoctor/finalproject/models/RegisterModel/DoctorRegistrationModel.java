@@ -12,7 +12,7 @@ public class DoctorRegistrationModel {
     private String biography;
     private String qualifications;
     private String documentURLs;
-    private Department department;
+    private String department;
 
     public Staff getStaff() {
         return staff;
@@ -46,11 +46,11 @@ public class DoctorRegistrationModel {
         this.documentURLs = documentURLs;
     }
 
-    public Department getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(String department) {
         this.department = department;
     }
 }

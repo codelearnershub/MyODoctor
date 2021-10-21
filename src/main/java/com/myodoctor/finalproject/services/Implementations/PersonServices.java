@@ -1,18 +1,16 @@
 package com.myodoctor.finalproject.services.Implementations;
 
 
-import com.myodoctor.finalproject.controller.PersonController;
-import com.myodoctor.finalproject.models.*;
-import com.myodoctor.finalproject.models.RegisterModel.PatientRegistrationModel;
+import com.myodoctor.finalproject.models.Address;
+import com.myodoctor.finalproject.models.Person;
 import com.myodoctor.finalproject.models.RegisterModel.PersonRegisterModel;
+import com.myodoctor.finalproject.models.Role;
 import com.myodoctor.finalproject.repositories.IPersonRepositories;
 import com.myodoctor.finalproject.repositories.IRoleRepositories;
-import com.myodoctor.finalproject.services.Interfaces.IPatientService;
 import com.myodoctor.finalproject.services.Interfaces.IPersonServices;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class PersonServices implements IPersonServices {
@@ -20,19 +18,15 @@ public class PersonServices implements IPersonServices {
     final
     IPersonRepositories personRepositories;
     IRoleRepositories roleRepositories;
-    PersonController personController;
-    IPatientService patientService;
 
-    public PersonServices(PersonController personController,IPersonRepositories personRepositories,IPatientService patientService) {
+
+    public PersonServices(IPersonRepositories personRepositories) {
         this.personRepositories = personRepositories;
     }
 
-    public boolean createPerson(PersonRegisterModel personModel,String role) {
-
-        //Dont Forget ValidATIONS
-
+    public Person createPerson(Address address,PersonRegisterModel personModel, String role) {
         var person = new Person();
-        if (setValues(person,personModel)) {
+        if (setValues(address,person,personModel)) {
             person.setReferenceNo(myUniqueNumber());
             person.setActive(true);
             person.setPassword(personModel.getPassword());
@@ -47,11 +41,11 @@ public class PersonServices implements IPersonServices {
 
             personRepositories.save(person);
             System.out.println("Person created Successfully");
-            return true;
+            return person;
         } else {
             System.out.println("Person Failed to create Successfully");
         }
-        return true;
+        return person;
     }
 
     private int randomNumbers() {
@@ -61,12 +55,12 @@ public class PersonServices implements IPersonServices {
        return  "MOD_0"+ randomNumbers() +""+ randomNumbers() + "" + randomNumbers()+ ""+randomNumbers()+ "";
     }
 
-    public boolean update(int id,PersonRegisterModel personModel) {
+    public boolean update(int id,Address address,PersonRegisterModel personModel) {
 //        var loggedUser = personController.getLoggedUsers();
 //        int id = loggedUser.getId();
         if (personRepositories.findById(id) != null) {
             Person person = personRepositories.findById(id).get();
-            if (setValues(person, personModel)) {
+            if (setValues(address,person, personModel)) {
                 System.out.println("Person Updated Successfully");
                 return true;
             } else {
@@ -91,7 +85,7 @@ public class PersonServices implements IPersonServices {
         return  true;
     }
 
-    public boolean setValues(Person person,PersonRegisterModel personModel) {
+    public boolean setValues(Address address,Person person,PersonRegisterModel personModel) {
 //        Person person = new Person();
 //         = null;
 //        assert false;
@@ -99,7 +93,15 @@ public class PersonServices implements IPersonServices {
         person.setFirstName(personModel.getFirstName());
         person.setLastName(personModel.getLastName());
         person.setMiddleName(personModel.getMiddleName());
-        person.setAddress(personModel.getAddress());
+
+        address = new  Address();
+        address.setCity(address.getCity());
+        address.setCountry(address.getCountry());
+        address.setStateProvinceCounty(address.getStateProvinceCounty());
+        address.setStreetNumber(address.getStreetNumber());
+        address.setZipPostalCode(address.getZipPostalCode());
+
+        person.setAddress(address);
         person.setLanguage(personModel.getLanguage());
         person.setDateOfBirth(personModel.getDateOfBirth());
         person.setHomePhoneNo(personModel.getHomePhoneNo());
