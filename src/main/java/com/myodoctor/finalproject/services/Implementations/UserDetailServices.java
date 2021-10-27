@@ -16,11 +16,16 @@ import java.util.Optional;
 @Service
 public class UserDetailServices implements UserDetailsService {
 
-    private IPersonRepositories personRepositories;
+    final IPersonRepositories personRepositories;
+
+    public UserDetailServices(IPersonRepositories personRepositories) {
+        this.personRepositories = personRepositories;
+    }
+
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<Person> optionalUser = Optional.ofNullable(personRepositories.findByUsername(userName));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Person> optionalUser = Optional.ofNullable(personRepositories.findByUsername(username));
         if(optionalUser.isPresent()) {
             Person person = optionalUser.get();
 
@@ -33,10 +38,10 @@ public class UserDetailServices implements UserDetailsService {
                     .username(person.getUsername())
                     //change here to store encoded password in db
                     .password( person.getPassword() )
-                    .disabled(person.isActive())
-//                    .accountExpired(person.isAccountExpired())
-//                    .accountLocked(user.isAccountLocked())
-//                    .credentialsExpired(user.isCredentialsExpired())
+                    .disabled(person.isDisabled())
+                    .accountExpired(person.isAccountExpired())
+                    .accountLocked(person.isAccountLocked())
+                    .credentialsExpired(person.isCredentialsExpired())
                     .roles(roleList.toArray(new String[0]))
                     .build();
         } else {

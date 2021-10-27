@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Roles</title>
+</head>
+<body>
+<tr>
+    <th>S/N</th>
+    <th>Role</th>
+</tr>
+<tr th:each="c : *{role}">
+    <td></td>
+    <td th:text="${c.getName()}"></td>
+</tr>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Patient</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>S/N</th>
+        <th>FullName</th>
+        <th>Date Created</th>
+        <th>Email</th>
+        <th>UserType</th>
+        <th>Department</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Details</th>
+    </tr>
+
+    <tr th:each="c : *{patient}">
+        <td></td>
+        <td th:text="${c.getPerson().getFirstName()}"></td>
+        <td th:text="${c.getPerson().getMiddleName()}"></td>
+        <td th:text="${c.getPerson().getLastName()}"></td>
+        <td th:text="${c.getPerson().getUsername()}"></td>
+        <td th:text="${c.getPerson().getMobileNo()}"></td>
+        <td><a th:href="@{/candidates/edit/{id}(id = ${c.getId()})}"><button>Edit</button></a></td>
+        <td><a th:href="@{/patients/softDelete{id}(id = ${c.getId()})}"><button>Disable</button></a></td>
+        <td><a th:href="@{/patients/seePatientDetails/{id}(id = ${c.getId()})}"><button>Details</button></a></td>
+    </tr>
+</table>
+</body>
+</html>

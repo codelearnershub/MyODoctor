@@ -1,7 +1,7 @@
 package com.myodoctor.finalproject.services.Implementations;
 
-
-import com.myodoctor.finalproject.models.*;
+import com.myodoctor.finalproject.models.Address;
+import com.myodoctor.finalproject.models.Doctor;
 import com.myodoctor.finalproject.models.RegisterModel.DoctorRegistrationModel;
 import com.myodoctor.finalproject.models.RegisterModel.PersonRegisterModel;
 import com.myodoctor.finalproject.repositories.IDepartmentRepositories;
@@ -9,30 +9,51 @@ import com.myodoctor.finalproject.repositories.IDoctorRepositories;
 import com.myodoctor.finalproject.services.Interfaces.IDoctorServices;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Service
 public class DoctorServices implements IDoctorServices {
-    IDoctorRepositories doctorRepositories;
-    IDepartmentRepositories departmentRepositories;
-    StaffServices staffServices;
+    final IDoctorRepositories doctorRepositories;
+    final IDepartmentRepositories departmentRepositories;
+    final StaffServices staffServices;
+    final PersonServices personServices;
 
-    PersonServices personServices;
-
-    public DoctorServices(IDepartmentRepositories departmentRepositories,IDoctorRepositories doctorRepositories) {
+    public DoctorServices(IDepartmentRepositories departmentRepositories, IDoctorRepositories doctorRepositories, StaffServices staffServices, PersonServices personServices) {
         this.doctorRepositories = doctorRepositories;
         this.departmentRepositories = departmentRepositories;
+        this.staffServices = staffServices;
+        this.personServices = personServices;
     }
 
-    public boolean createDoctor(DoctorRegistrationModel doctorRegistrationModel,Address address,PersonRegisterModel personModel,RedirectAttributes redirectAttributes,Person person) {
+    public boolean createDoctor(DoctorRegistrationModel doctorRegistrationModel,Address address,PersonRegisterModel personModel,RedirectAttributes redirectAttributes) {
         String role = "doctor";
-        var newStaff = staffServices.createStaff(address,personModel, redirectAttributes, role);
-        var department = departmentRepositories.findByName(doctorRegistrationModel.getDepartment());
+        if(personServices.doctorValidate(redirectAttributes,personModel)) {
+            var newStaff = staffServices.createStaff(address,personModel, redirectAttributes, role);
+            var department = departmentRepositories.findByName(doctorRegistrationModel.getDepartment());
 
-        Doctor doctor = new Doctor(newStaff,doctorRegistrationModel.getBiography(),doctorRegistrationModel.getQualifications(),doctorRegistrationModel.getDocumentURLs(),department);
+            Doctor doctor = new Doctor();
+            doctor.setStaff(newStaff);
+            doctor.setBiography(doctorRegistrationModel.getBiography());
+            doctor.setQualifications(doctorRegistrationModel.getQualifications());
 
-        doctorRepositories.save(doctor);
+            String fileName = null;
+            if (doctorRegistrationModel.getDocumentURLs() != null) {
+                fileName = uploadDocument(doctorRegistrationModel.getDocumentURLs(), redirectAttributes);
+            }
+            doctor.setDocumentURLs(fileName);
+            doctorRepositories.save(doctor);
+            return true;
+        }
         return true;
     }
 
@@ -52,16 +73,29 @@ public class DoctorServices implements IDoctorServices {
         doctor.setStaff(doctorRegistrationModel.getStaff());
         doctor.setBiography(doctorRegistrationModel.getBiography());
         doctor.setQualifications(doctorRegistrationModel.getQualifications());
-        doctor.setDocumentURLs(doctorRegistrationModel.getDocumentURLs());
+//        doctor.setDocumentURLs(doctorRegistrationModel.getDocumentURLs());
 
          var department = departmentRepositories.findByName(doctorRegistrationModel.getDepartment());
         doctor.setDepartment(department);
         return true;
     }
 
-    @GetMapping("/users/allDoctors")
-    public String getAllDeliveryPersonnel(Model model){
-        model.addAttribute("patients", doctorRepositories.findAll());
-        return "";
+    public Iterable<Doctor> getAllDoctors(Model model){
+        return doctorRepositories.findAll();
+    }
+
+    public String uploadDocument (MultipartFile file, RedirectAttributes redirectAttributes){
+        final String UPLOAD_DIR = "C://Users//ESSIEN ABASIAMA//Documents//Abasi Complex [ programming ]//Java Personal practise//myodoctor//src//main//resources//static//profilePictures";
+        try {
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            Path copyLocation = Paths.get(UPLOAD_DIR + File.separator + fileName);
+            Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+            return fileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
+
+

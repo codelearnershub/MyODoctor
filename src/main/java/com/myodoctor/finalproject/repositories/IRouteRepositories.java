@@ -4,5 +4,6 @@ import com.myodoctor.finalproject.models.Address;
 import com.myodoctor.finalproject.models.Route;
 import org.springframework.data.repository.CrudRepository;
 
-public interface IRoute extends CrudRepository<Route, Integer> {
+public interface IRouteRepositories extends CrudRepository<Route, Integer> {
+   Route findByRoute(String route);
 }

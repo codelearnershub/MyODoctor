@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Department</title>
+</head>
+<body>
+<form th:action="${'/department/deleteDepartment'}">
+    <select name="name" id="name">
+        <option th:each="d:${department}" th:value="${d.getName()}" th:text = "${d.getName()}"></option>
+    </select>
+
+    <input type="submit">
+</form>
+</body>
+</html>

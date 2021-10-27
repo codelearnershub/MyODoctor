@@ -6,6 +6,7 @@ import com.myodoctor.finalproject.models.Role;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,20 +14,19 @@ import java.util.List;
 
 public class PersonRegisterModel {
     private String username;
-    private String referenceNo;
     private String firstName;
     private String lastName;
     private String middleName;
 //    private Address address;
-    private List<Language> language;
-    private Date dateOfBirth;
+//    private List<Language> language;
+    private String dateOfBirth;
     private String homePhoneNo;
     private String workPhoneNo;
     private String mobileNo;
     private String gender;
-    private String profilePictureURL;
+    private MultipartFile profilePictureURL;
     private String email;
-    private boolean isActive;
+    private boolean disabled;
     private String password;
     private String confirmPassword;
 
@@ -36,14 +36,6 @@ public class PersonRegisterModel {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getReferenceNo() {
-        return referenceNo;
-    }
-
-    public void setReferenceNo(String referenceNo) {
-        this.referenceNo = referenceNo;
     }
 
     public String getFirstName() {
@@ -70,19 +62,19 @@ public class PersonRegisterModel {
         this.middleName = middleName;
     }
 
-    public List<Language> getLanguage() {
-        return language;
-    }
+//    public List<Language> getLanguage() {
+//        return language;
+//    }
+//
+//    public void setLanguage(List<Language> language) {
+//        this.language = language;
+//    }
 
-    public void setLanguage(List<Language> language) {
-        this.language = language;
-    }
-
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -118,11 +110,11 @@ public class PersonRegisterModel {
         this.gender = gender;
     }
 
-    public String getProfilePictureURL() {
+    public MultipartFile getProfilePictureURL() {
         return profilePictureURL;
     }
 
-    public void setProfilePictureURL(String profilePictureURL) {
+    public void setProfilePictureURL(MultipartFile profilePictureURL) {
         this.profilePictureURL = profilePictureURL;
     }
 
@@ -134,12 +126,12 @@ public class PersonRegisterModel {
         this.email = email;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isDisabled() {
+        return disabled;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActive(boolean disabled) {
+        disabled = disabled;
     }
 
     public String getPassword() {

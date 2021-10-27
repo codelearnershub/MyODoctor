@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CreateDepartment</title>
+</head>
+<body>
+<form th:action="${'/department/saveDepartment'}" method="POST">
+    <label for="name">Department Name</label>
+    <input type="text" id="name" name="name">
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>

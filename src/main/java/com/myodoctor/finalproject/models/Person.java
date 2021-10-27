@@ -1,12 +1,11 @@
 package com.myodoctor.finalproject.models;
 
 import com.sun.istack.NotNull;
-import org.apache.tomcat.jni.User;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,14 +13,13 @@ public class Person {
     public Person() {
     }
 
-    public Person(String username, String referenceNo, String firstName, String lastName, String middleName, Address address, List<Language> language, Date dateOfBirth, String homePhoneNo, String workPhoneNo, String mobileNo, String gender, String profilePictureURL, String email, boolean isActive, String password, List<Role> roles) {
+    public Person(String username, String referenceNo, String firstName, String lastName, String middleName, Address address, String dateOfBirth, String homePhoneNo, String workPhoneNo, String mobileNo, String gender, String profilePictureURL, String email, boolean disabled, boolean accountExpired, boolean accountLocked, boolean credentialsExpired, String password, List<Role> roles) {
         this.username = username;
         this.referenceNo = referenceNo;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.address = address;
-        this.language = language;
         this.dateOfBirth = dateOfBirth;
         this.homePhoneNo = homePhoneNo;
         this.workPhoneNo = workPhoneNo;
@@ -29,7 +27,10 @@ public class Person {
         this.gender = gender;
         this.profilePictureURL = profilePictureURL;
         this.email = email;
-        this.isActive = isActive;
+        this.disabled = disabled;
+        this.accountExpired = accountExpired;
+        this.accountLocked = accountLocked;
+        this.credentialsExpired = credentialsExpired;
         this.password = password;
         this.roles = roles;
     }
@@ -54,11 +55,11 @@ public class Person {
 
     @OneToOne
     private Address address;
+//
+//    @OneToMany
+//    private List<Language> language;
 
-    @OneToMany
-    private List<Language> language;
-
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     private String homePhoneNo;
 
@@ -73,7 +74,13 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    private boolean isActive;
+    private boolean disabled;
+
+    private boolean accountExpired;
+
+    private boolean accountLocked;
+
+    private boolean credentialsExpired;
 
     @Column(nullable = false)
     private String password;
@@ -135,19 +142,19 @@ public class Person {
         this.address = address;
     }
 
-    public List<Language> getLanguage() {
-        return language;
-    }
+//    public List<Language> getLanguage() {
+//        return language;
+//    }
+//
+//    public void setLanguage(List<Language> language) {
+//        this.language = language;
+//    }
 
-    public void setLanguage(List<Language> language) {
-        this.language = language;
-    }
-
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -199,12 +206,36 @@ public class Person {
         this.email = email;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isDisabled() {
+        return disabled;
     }
 
-    public void setActive(boolean active) {
-        this.isActive = active;
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public boolean isAccountExpired() {
+        return accountExpired;
+    }
+
+    public void setAccountExpired(boolean accountExpired) {
+        this.accountExpired = accountExpired;
+    }
+
+    public boolean isAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public boolean isCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
     }
 
     public String getPassword() {

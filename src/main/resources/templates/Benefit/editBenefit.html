@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Benefit</title>
+</head>
+<body>
+<form th:action="${'/benefit/updateBenefit'}" method="POST">
+    <div>
+        <input type="text" name="id" id="id" hidden>
+    </div>
+    <div>
+        <label for="name">Benefit Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <div>
+        <label for="description">Benefit Description</label>
+        <input type="text" name="description" id="description">
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>

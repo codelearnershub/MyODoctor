@@ -2,13 +2,12 @@ package com.myodoctor.finalproject.services.Implementations;
 
 import com.myodoctor.finalproject.models.Address;
 import com.myodoctor.finalproject.models.DeliveryPersonnel;
-import com.myodoctor.finalproject.models.Person;
 import com.myodoctor.finalproject.models.RegisterModel.DeliveryPersonnelRegistrationModel;
 import com.myodoctor.finalproject.models.RegisterModel.PersonRegisterModel;
-import com.myodoctor.finalproject.models.validations.PersonFormValidations;
+import com.myodoctor.finalproject.models.Route;
 import com.myodoctor.finalproject.repositories.IDeliveryPersonnelRepositories;
+import com.myodoctor.finalproject.repositories.IRouteRepositories;
 import com.myodoctor.finalproject.services.Interfaces.IDeliveryPersonnelService;
-import com.myodoctor.finalproject.services.Interfaces.IStaffServices;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +16,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Service
 public class DeliveryPersonnelServices implements IDeliveryPersonnelService {
 
-    IDeliveryPersonnelRepositories deliveryPersonnelRepositories;
-    StaffServices staffServices;
+    final IRouteRepositories routeRepositories;
+    final IDeliveryPersonnelRepositories deliveryPersonnelRepositories;
+    final StaffServices staffServices;
+    final PersonServices personServices;
 
-    PersonServices personServices;
-
-    public DeliveryPersonnelServices(IDeliveryPersonnelRepositories deliveryPersonnelRepositories) {
+    public DeliveryPersonnelServices(IRouteRepositories routeRepositories, IDeliveryPersonnelRepositories deliveryPersonnelRepositories, StaffServices staffServices, PersonServices personServices) {
+        this.routeRepositories = routeRepositories;
         this.deliveryPersonnelRepositories = deliveryPersonnelRepositories;
+        this.staffServices = staffServices;
+        this.personServices = personServices;
     }
 
     public boolean createDeliveryPersonnel(RedirectAttributes redirectAttributes,DeliveryPersonnelRegistrationModel deliveryPersonnelModel, Address address, PersonRegisterModel personModel) {
-
         String role = "deliveryPersonnel";
         var newStaff = staffServices.createStaff(address,personModel,redirectAttributes,role);
-        DeliveryPersonnel deliveryPersonnel = new DeliveryPersonnel(newStaff,deliveryPersonnelModel.getRoute());
+        Route route = new Route(deliveryPersonnelModel.getRoute(),deliveryPersonnelModel.getDescription());
+        routeRepositories.save(route);
+        var deliveryPersonnel = new DeliveryPersonnel(newStaff,route);
         deliveryPersonnelRepositories.save(deliveryPersonnel);
         return true;
     }
@@ -60,23 +63,18 @@ public class DeliveryPersonnelServices implements IDeliveryPersonnelService {
         address.setZipPostalCode(address.getZipPostalCode());
 
         deliveryPersonnel.getStaff().getPerson().setAddress(address);
-        deliveryPersonnel.getStaff().getPerson().setLanguage(personModel.getLanguage());
         deliveryPersonnel.getStaff().getPerson().setDateOfBirth(personModel.getDateOfBirth());
         deliveryPersonnel.getStaff().getPerson().setHomePhoneNo(personModel.getHomePhoneNo());
         deliveryPersonnel.getStaff().getPerson().setWorkPhoneNo(personModel.getWorkPhoneNo());
         deliveryPersonnel.getStaff().getPerson().setMobileNo(personModel.getMobileNo());
 
         deliveryPersonnel.getStaff().getPerson().setGender(personModel.getGender());
-        deliveryPersonnel.getStaff().getPerson().setProfilePictureURL(personModel.getProfilePictureURL());
         deliveryPersonnel.getStaff().getPerson().setEmail(personModel.getEmail());
-
-        deliveryPersonnel.setRoute(deliveryPersonnelModel.getRoute());
         return true;
     }
 
     @GetMapping("/users/allDeliveryPersonnel")
-    public String getAllDeliveryPersonnel(Model model){
-        model.addAttribute("patients", deliveryPersonnelRepositories.findAll());
-        return "";
+    public Iterable<DeliveryPersonnel> getAllDeliveryPersonnel(Model model){
+        return deliveryPersonnelRepositories.findAll();
     }
 }

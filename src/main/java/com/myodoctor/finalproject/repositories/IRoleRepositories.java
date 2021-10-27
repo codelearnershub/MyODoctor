@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface IRoleRepositories extends CrudRepository<Role, Integer> {
     Optional<Role> findByName(String name);
+    boolean existsByName(String name);
 }

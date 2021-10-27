@@ -1,6 +1,7 @@
 package com.myodoctor.finalproject.models;
 
 import com.myodoctor.finalproject.enums.StaffType;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ public class Staff {
 
     public Staff(Person person, String type) {
         this.id = person.getId();
+        this.person = person;
         this.type = type;
     }
 
@@ -20,6 +22,7 @@ public class Staff {
     @OneToOne
     private Person person;
 
+    @NotNull
     private String type;
 
     public int getId() {

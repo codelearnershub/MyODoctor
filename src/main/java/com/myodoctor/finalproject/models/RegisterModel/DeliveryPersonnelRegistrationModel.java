@@ -4,22 +4,23 @@ import com.myodoctor.finalproject.models.Route;
 import com.myodoctor.finalproject.models.Staff;
 
 public class DeliveryPersonnelRegistrationModel {
-    private Staff staff;
-    private Route route;
+    private String route;
 
-    public Staff getStaff() {
-        return staff;
+    private String description;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Route getRoute() {
+    public String getRoute() {
         return route;
     }
 
-    public void setRoute(Route route) {
+    public void setRoute(String route) {
         this.route = route;
     }
 }

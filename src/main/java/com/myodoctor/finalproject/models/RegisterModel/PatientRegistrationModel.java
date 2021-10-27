@@ -3,21 +3,13 @@ package com.myodoctor.finalproject.models.RegisterModel;
 import com.myodoctor.finalproject.models.Person;
 
 public class PatientRegistrationModel {
-//    private Person person;
+
     private double weight;
     private double height;
     private String bloodGroup;
     private String genotype;
     private String workId;
-    private String patientHospitalId;
-
-//    public Person getPerson() {
-//        return person;
-//    }
-//
-//    public void setPerson(Person person) {
-//        this.person = person;
-//    }
+//    private String patientHospitalId;
 
     public double getWeight() {
         return weight;
@@ -59,12 +51,12 @@ public class PatientRegistrationModel {
         this.workId = workId;
     }
 
-    public String getPatientHospitalId() {
-        return patientHospitalId;
-    }
-
-    public void setPatientHospitalId(String patientHospitalId) {
-        this.patientHospitalId = patientHospitalId;
-    }
+//    public String getPatientHospitalId() {
+//        return patientHospitalId;
+//    }
+//
+//    public void setPatientHospitalId(String patientHospitalId) {
+//        this.patientHospitalId = patientHospitalId;
+//    }
 
 }

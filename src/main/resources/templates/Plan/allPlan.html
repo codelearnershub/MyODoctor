@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Plan</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>S/N</th>
+        <th>PlanName</th>
+        <th>Plan Rate</th>
+        <th>Plan Benefits</th>
+        <th>Delete</th>
+        <th>Detials</th>
+
+    </tr>
+
+    <tr th:each="c : *{allPlan}">
+        <td></td>
+        <td th:text="${c.getName()}"></td>
+        <td th:text="${c.getRate()}"></td>
+        <td><li th:each="d : *{c.getBenefits()}" th:text="d"></li></td>
+        <td><a th:href="@{/patients/softDelete{id}(id = ${c.getId()})}"><button>Delete</button></a></td>
+        <td><a th:href="@{/patients/seePatientDetails/{id}(id = ${c.getId()})}"><button>Details</button></a></td>
+    </tr>
+</table>
+</body>
+</html>

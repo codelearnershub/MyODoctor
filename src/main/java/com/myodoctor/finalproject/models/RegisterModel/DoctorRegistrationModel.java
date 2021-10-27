@@ -1,17 +1,13 @@
 package com.myodoctor.finalproject.models.RegisterModel;
 
-import com.myodoctor.finalproject.models.Department;
 import com.myodoctor.finalproject.models.Staff;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import org.springframework.web.multipart.MultipartFile;
 
 public class DoctorRegistrationModel {
     private Staff staff;
     private String biography;
     private String qualifications;
-    private String documentURLs;
+    private MultipartFile documentURLs;
     private String department;
 
     public Staff getStaff() {
@@ -38,11 +34,11 @@ public class DoctorRegistrationModel {
         this.qualifications = qualifications;
     }
 
-    public String getDocumentURLs() {
+    public MultipartFile getDocumentURLs() {
         return documentURLs;
     }
 
-    public void setDocumentURLs(String documentURLs) {
+    public void setDocumentURLs(MultipartFile documentURLs) {
         this.documentURLs = documentURLs;
     }
 

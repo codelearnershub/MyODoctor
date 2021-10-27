@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="${'/roles/saveRole'}" method = "post">
+    <label for="roleName">Create Role</label>
+    <input type="text" id="roleName" name="roleName" >
+    
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>
