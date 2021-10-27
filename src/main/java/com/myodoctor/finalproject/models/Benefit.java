@@ -43,4 +43,5 @@ public class Benefit {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

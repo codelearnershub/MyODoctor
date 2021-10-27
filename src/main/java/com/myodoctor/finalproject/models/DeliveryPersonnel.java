@@ -1,5 +1,5 @@
 package com.myodoctor.finalproject.models;
-
+sistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -23,6 +23,10 @@ public class DeliveryPersonnel {
 
     @OneToOne
     private Route route;
+  
+    public int GetId(){
+        return id; 
+    }
 
     public Staff getStaff() {
         return staff;
