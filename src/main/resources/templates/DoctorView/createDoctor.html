@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="${'/doctors/create'}" enctype="multipart/form-data"  method = "post">
+    <div>
+        <label for="firstName">FirstName</label>
+        <input type="text" id="firstName" name="firstName" placeholder="firstName" required>
+    </div>
+    <div>
+        <label for="lastName">LastName</label>
+        <input type="text" id="lastName" name="lastName" placeholder="lastName" required>
+    </div>
+    <div>
+        <label for="middleName">middleName</label>
+        <input type="text" id="middleName" name="middleName" placeholder="middleName" >
+    </div>
+    <div>
+        <label for="dateOfBirth">DateOfBirth</label>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="dateOfBirth" required>
+    </div>
+    <div>
+        <label for="homePhoneNo">HomePhoneNumber</label>
+        <input type="text" id="homePhoneNo" name="homePhoneNo" placeholder="homePhoneNumber" >
+    </div>
+    <div>
+        <label for="workPhoneNo">WorkPhoneNumber</label>
+        <input type="text" id="workPhoneNo" name="workPhoneNo" placeholder="workPhoneNumber" >
+    </div>
+    <div>
+        <label for="mobileNo">Mobile Number</label>
+        <input type="text" id="mobileNo" name="mobileNo" placeholder="MobileNo" required>
+    </div>
+    <div>
+        <label for="gender">Gender</label>
+        <select name="gender" id="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Would't Say">Would't Say</option>
+        </select>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="password" required>
+    </div>
+    <div>
+        <label for="confirmPassword">ConfirmPassword</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="confirmPassword" required>
+    </div>
+    <div>
+        <label for="streetNumber">streetNumber</label>
+        <input type="text" id="streetNumber" name="streetNumber" placeholder="streetNumber" required>
+    </div>
+    <div>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="city" required>
+    </div>
+    <div>
+        <label for="zipPostalCode">zipPostalCode</label>
+        <input type="text" id="zipPostalCode" name="zipPostalCode" placeholder="zipPostalCode" required>
+    </div>
+    <div>
+        <label for="stateProvinceCounty">State</label>
+        <input type="text" id="stateProvinceCounty" name="stateProvinceCounty" placeholder="stateProvinceCountry" required>
+    </div>
+    <div>
+        <label for="country">Country</label>
+        <input type="text" id="country" name="country" placeholder="country" required>
+    </div>
+    <div>
+        <label for="profilePictureURL">ProfilePicture</label>
+        <input type="file" id="profilePictureURL" name="profilePictureURL" placeholder="profilePicture" th:value="profilePicture">
+    </div>
+    <div>
+        <label for="biography">Biography</label>
+        <input type="text" id="biography" name="biography" required>
+    </div>
+  <div>
+      <label for="qualifications">Certificate Held</label>
+      <select name="qualifications" id="qualifications" required>
+          <option value="none">None</option>
+          <option value="Certificate Respiratory Therapist">Certificate Respiratory Therapist</option>
+          <option value="Certified Practical Nurse">Certified Practical Nurse</option>
+          <option value="Medical Writing Certificate">Medical Writing Certificate</option>
+          <option value="Certificate Of Massage Theraphy">Certificate Of Massage Theraphy</option>
+          <option value="Certified Emergency Medical Technology">Certified Emergency Medical Technology</option>
+          <option value="Dental Technical Certification">Dental Technical Certification</option>
+          <option value="Certified Medical Laboratory Technician">Certified Medical Laboratory Technician</option>
+          <option value="X-Ray Technical Certification">X-Ray Technical Certification</option>
+          <option value="Pharmacy Technology Certificate">Pharmacy Technology Certificate</option>
+      </select>
+  </div>
+    <div>
+        <div>
+            <label for="documentURLs">Upload Qualification Certificates</label>
+            <input type="file" id="documentURLs" name="documentURLs" >
+        </div>
+    </div>
+    <div>
+        <label for="department">Select Department</label>
+        <select name="department" id="department">
+            <option th:each="d:${availableDepartment}" th:value="${d.getName()}" th:text = "${d.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>

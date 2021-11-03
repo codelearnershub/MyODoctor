@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Route</title>
+</head>
+<body>
+<form th:action="${'/route/saveRoute'}" method = "post">
+    <div>
+        <label for="route">Create Route</label>
+        <input type="text" id="route" name="route" >
+    </div>
+    <div>
+        <label for="description">Route Description</label>
+        <input type="text" id="description" name="description">
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>

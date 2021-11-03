@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CreateBenefit</title>
+</head>
+<body>
+<form th:action="${'/plan/savePlan'}" method="POST">
+    <div>
+        <label for="name">Benefit Name</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <div>
+        <label for="description">Benefit Description</label>
+        <input type="text" name="description" id="description">
+    </div>
+    <div>
+        <label for="benefit">Select Benefits</label>
+        <select name="benefit" id="benefit" multiple>
+            <option th:each="d:${allBenefit}" th:value="${d.getName()}" th:text = "${d.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
+</form>
+</body>
+</html>
